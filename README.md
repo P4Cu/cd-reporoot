@@ -41,7 +41,7 @@ antigen bundle P4Cu/cd-reporoot
 ### Installing using Zgen
 If you use [zgen](https://github.com/tarjoilija/zgen), add the following to your `.zshrc`
 ```
-zgen load mollifier/cd-gitroot
+zgen load mollifier/cd-reporoot
 ```
 to your `.zshrc` with your other `zgen load` commands.
 

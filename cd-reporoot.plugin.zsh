@@ -1,2 +1,2 @@
 # init script for antigen
-autoload -Uz cd-gitroot
+autoload -Uz cd-reporoot
