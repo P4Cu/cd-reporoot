@@ -34,6 +34,26 @@ function cdreporoot_print_error()
     echo "Try \`-h' option for more information." 1>&2
 }
 
+function findroot() {
+    d="$(pwd)"
+    # max 20 iterations
+    # TODO: windows?
+    for i in {1..20}; do
+        if [ "${d}" = "/" ]; then
+            d=""
+            break
+        elif [ "${d}" = "${HOME}" ]; then
+            d=""
+            break
+        elif [ -d "${d}/.repo" ]; then
+            break
+        fi
+        d="$(dirname ${d})"
+    done
+
+    echo "${d}"
+}
+
 function cdreporoot() {
 
   local option OPTARG OPTIND
@@ -55,13 +75,13 @@ function cdreporoot() {
   done
   shift $(expr $OPTIND - 1)
 
-  if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) != 'true' ]]; then
-    cdreporoot_print_error "Not in a git repository"
+  local root_path=$(findroot)
+  if [[ "${root_path}" == '' ]]; then
+    cdreporoot_print_error "Not in a repo repository"
     return 1
   fi
 
   local relative_path="$1"
-  local root_path=$(git rev-parse --show-toplevel)
 
   if [ -n "$relative_path" ]; then
     cd "$root_path/$relative_path"
