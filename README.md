@@ -1,18 +1,18 @@
-# cd-gitroot
+# cd-reporoot
 
 ## Synopsis
-zsh plugin to change directory to git repository root directory
+zsh plugin to change directory to .repo repository root directory
 
-Inspired by [id:hitode909 blog post](http://hitode909.hatenablog.com/entry/20100211/1265879271).
+Forked from cd-gitroot
 
 ## How to set up
 
 ### Manually install
 
-Put cd-gitroot and _cd-gitroot files somewhere in your $fpath and add the following line to your .zshrc:
+Put cd-reporoot and _cd-reporoot files somewhere in your $fpath and add the following line to your .zshrc:
 
 ```
-autoload -Uz cd-gitroot
+autoload -Uz cd-reporoot
 ```
 
 #### For example
@@ -20,22 +20,22 @@ autoload -Uz cd-gitroot
 ```
 # download all files
 % cd /path/to/dir
-% git clone https://github.com/mollifier/cd-gitroot.git
+% git clone https://github.com/P4Cu/cd-reporoot.git
 ```
 
 And add the following lines to your .zshrc:
 
 ```
-fpath=(/path/to/dir/cd-gitroot(N-/) $fpath)
+fpath=(/path/to/dir/cd-reporoot(N-/) $fpath)
 
-autoload -Uz cd-gitroot
+autoload -Uz cd-reporoot
 ```
 
 ### Installing using Antigen
 If you use [Antigen](https://github.com/zsh-users/antigen), add the following line to your .zshrc:
 
 ```
-antigen bundle mollifier/cd-gitroot
+antigen bundle P4Cu/cd-reporoot
 ```
 
 ### Installing using Zgen
@@ -49,16 +49,16 @@ You can set alias to this function.
 e.g.
 
 ```
-alias cdu='cd-gitroot'
+alias cdr='cd-reporoot'
 ```
 
 ## Usage
 
 ```
-cd-gitroot [PATH]
+cd-reporoot [PATH]
 ```
 
-If PATH isn't specified, change directory to current git repository root directory.
+If PATH isn't specified, change directory to current .repo repository root directory.
 else change directory to PATH instead of it.
 PATH is treated relative path in git root directory.
 
