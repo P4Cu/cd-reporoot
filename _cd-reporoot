@@ -29,14 +29,34 @@ args=(
 local curcontext=$curcontext state line ret=1
 declare -A opt_args
 
+function findroot() {
+    d="$(pwd)"
+    # max 20 iterations
+    # TODO: windows?
+    for i in {1..20}; do
+        if [ "${d}" = "/" ]; then
+            d=""
+            break
+        elif [ "${d}" = "${HOME}" ]; then
+            d=""
+            break
+        elif [ -d "${d}/.repo" ]; then
+            break
+        fi
+        d="$(dirname ${d})"
+    done
+
+    echo "${d}"
+}
+
 # show directories in git top level directory
 (( $+functions[_cd-reporoot_path] )) ||
 _cd-reporoot_path() {
-  if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) != 'true' ]]; then
+  local root_path=$(findroot)
+  if [[ "$root_path" == '' ]]; then
     return 1
   fi
 
-  local root_path=$(git rev-parse --show-toplevel)
   _path_files -W "$root_path" -/
 }
 
